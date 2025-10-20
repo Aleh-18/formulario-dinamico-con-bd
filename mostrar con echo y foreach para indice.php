@@ -14,10 +14,10 @@
 
   // Recorremos los resultados recogidos con la consulta anterior
   if ($opciones && $opciones->num_rows > 0) {
-      while ($fila = $opciones->fetch_array()) {
-          echo $fila['dato'] . "<br>";
-      }
-      $opciones->free();
+    $fila = $opciones->fetch_assoc();
+    foreach ($fila as $indice => $valor) {
+            echo "Índice: " . $indice . " - Valor: " . $valor . "<br>";
+    }
   }
 
     // cerramos la conexión

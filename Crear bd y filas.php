@@ -17,10 +17,10 @@
 
     // Insertar datos en la tabla
     $acciones = [
-        "Reciclaje",
-        "Reducir el uso de plásticos",
-        "Usar transporte sostenible",
-        "Ahorrar energía en casa"
+        "El oso polar",
+        "Biodiversidad",
+        "Soluciones",
+        "Datos"
     ];
 
     foreach ($acciones as $accion) {
