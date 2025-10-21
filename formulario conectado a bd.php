@@ -1,15 +1,22 @@
 <?php
   include 'config.php'; // conexión con mysql
 
+  
   // Consulta para obtener los datos del select
-  $sql = "SELECT dato FROM SelectValues";
-  $resultado = $conexion->query($sql);
+  $sqlSelect = "SELECT idDato, dato FROM SelectValues";
+  $resultadoSelect = $conexion->query($sqlSelect);
 
-  // Comprobar si da error la consulta
-  if (!$resultado) {
+  // Consulta para obtener los valores de los checkboxes
+  $sqlCheckbox = "SELECT idCheckbox, valor FROM CheckboxValues";
+  $resultadoCheckbox = $conexion->query($sqlCheckbox);
+
+  // Comprobar si dan error las consultas
+  if (!$resultadoCheckbox) {
+    echo "Error en la consulta: " . $conexion->error;
+  }
+
+  if (!$resultadoSelect) {
       echo "Error en la consulta: " . $conexion->error;
-  } else {
-      $opciones = $resultado;
   }
 ?>
 <!DOCTYPE html>
@@ -21,7 +28,7 @@
     <title>Formulario Dinámico con BD</title>
   </head>
   <body>
-    <form class="boletin" method="post" action="">
+    <form class="boletin" method="post" action="enviar.php">
       <h3>Suscríbete para enterarte de nuevas novedades</h3>
 
       <p>Nombre:</p>
@@ -48,22 +55,29 @@
       <select name="intereses" id="intereses">
         <?php
           // Recorremos los resultados recogidos con la consulta anterior
-          if ($opciones && $opciones->num_rows > 0) {
-              while ($fila = $opciones->fetch_array()) {
-                  $valor = $fila['dato'];
-                  echo "<option value='$valor'>$valor</option>";
+          if ($resultadoSelect && $resultadoSelect->num_rows > 0) {
+              while ($fila = $resultadoSelect->fetch_array()) {
+                  $valor = $fila['idDato'];
+                  $texto = $fila['dato'];
+                  echo "<option value='$valor'>$texto</option>";
               }
-              $opciones->free();
+              $resultadoSelect->free();
           }
         ?>
       </select>
 
       <span>Acciones que has realizado para combatir el cambio climático:</span>
       <div class="acciones">
-        <p><input type="checkbox" name="acciones[]" value="Reciclaje">Reciclaje</p>
-        <p><input type="checkbox" name="acciones[]" value="Reducir el uso de plásticos">Reducir el uso de plásticos</p>
-        <p><input type="checkbox" name="acciones[]" value="Usar transporte sostenible">Usar transporte sostenible</p>
-        <p><input type="checkbox" name="acciones[]" value="Ahorrar energía en casa">Ahorrar energía en casa</p>
+      <?php
+        if ($resultadoCheckbox && $resultadoCheckbox->num_rows > 0) {
+          while ($fila = $resultadoCheckbox->fetch_array()) {
+            $id = $fila['idCheckbox'];
+            $texto = $fila['valor'];
+            echo "<p><input type='checkbox' name='acciones[]' value='$id'> $texto</p>";
+          }
+          $resultadoCheckbox->free();
+        }
+      ?>
       </div>
 
       <div>Sugerencias:</div>

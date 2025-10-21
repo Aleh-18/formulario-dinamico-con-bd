@@ -5,6 +5,7 @@
     // Crear la tabla 
     $sql_crear = "
     CREATE TABLE SelectValues (
+        idDato INT AUTO_INCREMENT PRIMARY KEY,
         dato VARCHAR(255)
     )";
     $resultado = $conexion->query($sql_crear);
