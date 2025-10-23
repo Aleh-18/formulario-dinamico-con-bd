@@ -25,7 +25,7 @@
     ];
 
     foreach ($acciones as $accion) {
-        $sql_insertar = "INSERT INTO SelectValues (dato) VALUES ('$accion')";
+        $sql_insertar = "INSERT INTO SelectValues (dato) VALUES ('" . $accion . "')";
         $resultado = $conexion->query($sql_insertar);
 
         if ($conexion->affected_rows) {

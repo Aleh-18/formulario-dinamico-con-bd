@@ -33,7 +33,7 @@
         echo "Correo recibido: " . $correo . "<br>";
 
         // comprobar si ya existe ese correo
-        $sqlCheck = "SELECT id FROM datosformulario WHERE correo = '$correo' LIMIT 1";
+        $sqlCheck = "SELECT id FROM datosformulario WHERE correo = '" . $correo . "' LIMIT 1";
         $resultadoCheck = $conexion->query($sqlCheck);
         if ($resultadoCheck && $resultadoCheck->num_rows > 0) {
             echo "<p>Correo ya registrado</p>";
@@ -107,7 +107,7 @@
         $sqlFormulario = "INSERT INTO datosformulario 
                 (nombre, apellidos, correo, pw, radio_opcion, seleccionFK, sugerencias) 
                 VALUES 
-                ('$nombre', '$apellidos', '$correo', '$pw', '$radio', $select, '$sugerencias')";
+                ('" . $nombre . "','" . $apellidos . "','" . $correo . "','" . $pw . "','" . $radio . "'," . $select . ",'" . $sugerencias . "')";
 
         if ($conexion->query($sqlFormulario) === TRUE) {
             
@@ -117,7 +117,7 @@
                 // Usamos insert_id para mejorar rendimiento
                 $idFormulario = $conexion->insert_id;
                 foreach ($checkboxes as $idCheckbox) {
-                    $sqlFrCheck = "INSERT INTO FormularioCheckbox (idFormulario, idCheckbox) VALUES ($idFormulario, $idCheckbox)";
+                    $sqlFrCheck = "INSERT INTO FormularioCheckbox (idFormulario, idCheckbox) VALUES (" . $idFormulario . "," . $idCheckbox . ")";
                     if ($conexion->query($sqlFrCheck) === FALSE) {
                         echo "<br>Error al insertar checkbox" . $conexion->error;
                     }
