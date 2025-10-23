@@ -23,15 +23,16 @@ CREATE TABLE datosformulario (
     apellidos VARCHAR(150) NOT NULL,
     correo VARCHAR(150) NOT NULL UNIQUE,
     pw VARCHAR(100) NOT NULL,
-    radio_opcion VARCHAR(50) NOT NULL,
+    radio_opcion VARCHAR(50) NULL,
     seleccionFK INT,
     sugerencias VARCHAR(500) NOT NULL,
     CONSTRAINT fk_seleccion FOREIGN KEY (seleccionFK) REFERENCES SelectValues(idDato) ON DELETE CASCADE
 );
 
+//hacer que correo sea unique sin modificar la Tabla
+add CONSTRAINT unique_correo UNIQUE (correo) to datosformulario;
 
-
-//Creando todo lo necesario para que el checkbox sea dinamico y tmb teniendo en cuenta la multiple seleccion de estos
+//Creacion de - todo lo necesario para que el checkbox sea dinamico y tmb teniendo en cuenta la multiple seleccion de estos
 
 CREATE TABLE CheckboxValues (
     idCheckbox INT AUTO_INCREMENT PRIMARY KEY,

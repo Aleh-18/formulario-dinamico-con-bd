@@ -123,9 +123,7 @@
                     }
                 }
             }
-           
             echo "<br>Datos del formulario insertados correctamente";
-
         } else {
             echo "<br>Error al insertar el formulario: " . $conexion->error;
         }

@@ -58,8 +58,8 @@
         $radio = $_POST['impacto'];
         echo "Opción radio recibida: " . $radio . "<br>";
     } else {
-        echo "No se ha recibido ninguna opción radio.<br>";
-        $ok = false;
+        echo "No se ha recibido ninguna opción radio se pondra a NULL.<br>";
+        $radio = "NULL";
     }
 
     // Select
